@@ -3,11 +3,40 @@ body {
 }
 
 h1 {
-  font-family: 'MedievalSharp';
-  color: #ffffff;
+  font-family: 'MedievalSharp', monospace;
+  color: white;
 }
 
-#main {
+#intro {
   text-align: center;
   font-size: 50px;
+  margin-top: 2%
+}
+
+#history-container {
+  position: relative;
+  height: 500px;
+  width: 40%;
+  overflow: auto;
+  border: 1px solid white;
+  margin-left: 5%;
+  margin-top: 3%;
+}
+
+#history {
+  border: 1px solid red;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.author {
+  font-family: 'MedievalSharp', monospace;
+  color: red;
+}
+
+.description {
+  font-family: 'MedievalSharp', monospace;
+  color: white;
 }
