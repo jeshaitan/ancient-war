@@ -15,12 +15,12 @@ h1 {
 
 #historyContainer {
   position: relative;
-  height: 500px;
+  height: 650px;
   width: 40%;
   overflow: auto;
   border: 1px solid white;
   margin-left: 5%;
-  margin-top: 3%;
+  margin-top: 5%;
 }
 
 #history {
@@ -48,4 +48,5 @@ h1 {
 .description {
   font-family: 'MedievalSharp', monospace;
   color: white;
+  word-break: break-all;
 }
