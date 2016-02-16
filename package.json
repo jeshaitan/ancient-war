@@ -16,5 +16,8 @@
     "mmo"
   ],
   "author": "Jesse Smith",
-  "license": "GPLv3"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
