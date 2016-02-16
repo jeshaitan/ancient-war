@@ -1,0 +1,20 @@
+{
+  "name": "ancient-war",
+  "version": "0.0.1",
+  "description": "a massively multiplayer online web-based text rpg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'no test specified'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://gihub.com/jeshaitan/ancient-war.git"
+  },
+  "keywords": [
+    "rpg",
+    "text",
+    "mmo"
+  ],
+  "author": "Jesse Smith",
+  "license": "GPLv3"
+}
