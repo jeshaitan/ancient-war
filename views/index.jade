@@ -6,11 +6,14 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=MedievalSharp')
   body
     h1(id='intro') Welcome to Ancient War.
-    div(id='history-container') 
+    div(id='historyContainer') 
       table(id='history')
         tbody
-          each action, i in actions
+          each action, i in history
             tr
               td(class='author')= action.author + ':'
               td(class='description')= action.description
+    div(id='inputContainer')
+      form(action='do', method='post', enctype='application/json')
+          input(id='actionField', type='text', name='input', autofocus='autofocus')
     
