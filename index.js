@@ -43,7 +43,7 @@ app.post('/do', function(req, res) {
 
   //create new user -> step 1: register name and list species
   else if(history[history.length - 1].type == 'createNewUser') {
-    var name = req.body.input;
+    name = req.body.input;
     history.push({type: 'nameChoice', author: name, description: name}
                , {type: 'chooseSpecies', author: 'Server', description: 'What species are you?'}
                , {type: 'species', author: 'Server', description: 'Human: Ingenuitive, stubborn creatures that have an unstable balance of good and evil within them.'}
@@ -56,11 +56,11 @@ app.post('/do', function(req, res) {
     history.push({type: 'speciesChoice', author: name, description: req.body.input});
     if(req.body.input == 'Human' || req.body.input == 'human')
       var species = 'Human';
-    if(req.body.input == 'Dwarf' || req.body.input == 'dwarf')
+    else if(req.body.input == 'Dwarf' || req.body.input == 'dwarf')
       var species = 'Dwarf';
-    if(req.body.input == 'Elf' || req.body.input == 'elf')
+    else if(req.body.input == 'Elf' || req.body.input == 'elf')
       var species = 'Elf';
-    if(req.body.input == 'Naga' || req.body.input == 'naga')
+    else if(req.body.input == 'Naga' || req.body.input == 'naga')
       var species = 'Naga';
     else
       history.push({type: 'species', author: 'Server', description: 'Sorry, I don\'t understand.'});
@@ -77,11 +77,11 @@ app.post('/do', function(req, res) {
     history.push({type: 'vocationChoice', author: name, description: req.body.input});
     if(req.body.input == 'Knight' || req.body.input == 'knight')
       var vocation = 'Knight';
-    if(req.body.input == 'Archer' || req.body.input == 'archer')
+    else if(req.body.input == 'Archer' || req.body.input == 'archer')
       var vocation = 'Archer';
-    if(req.body.input == 'Gladiator' || req.body.input == 'gladiator')
+    else if(req.body.input == 'Gladiator' || req.body.input == 'gladiator')
       var vocation = 'Gladiator';
-    if(req.body.input == 'Wizard' || req.body.input == 'wizard')
+    else if(req.body.input == 'Wizard' || req.body.input == 'wizard')
       var vocation = 'Wizard';
     else
       history.push({type: 'vocation', author: 'Server', description: 'Sorry, I don\'t understand.'});
@@ -102,6 +102,7 @@ app.post('/do', function(req, res) {
 
 });
 
+var name;
 var history = [{type: 'flavor', author: 'Server', description: 'Welcome to Ancient War.'}
             , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'}]
 

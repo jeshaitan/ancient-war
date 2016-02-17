@@ -16,7 +16,7 @@ h1 {
 #historyContainer {
   position: relative;
   height: 650px;
-  width: 40%;
+  width: 45%;
   overflow: auto;
   border: 1px solid white;
   margin-left: 5%;
@@ -32,7 +32,7 @@ h1 {
 }
 
 #inputContainer {
-  width: 39.9%;
+  width: 44.9%;
   position: relative;
   margin-left: 4.9%;
 }
@@ -40,9 +40,15 @@ h1 {
 #actionField {
   width: 100%;
 }
+
 .author {
   font-family: 'MedievalSharp', monospace;
   color: red;
+}
+
+.sauthor {
+  font-family: 'MedievalSharp', monospace;
+  color: blue;
 }
 
 .description {

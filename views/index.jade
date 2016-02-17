@@ -11,7 +11,10 @@ html
         tbody
           each action, i in history
             tr
-              td(class='author')= action.author + ':'
+              if action.author == 'Server'
+                td(class='sauthor')= action.author + ':'
+              else
+                td(class='author')= action.author + ':'
               td(class='description')= action.description
     div(id='inputContainer')
       form(action='do', method='post', enctype='application/json')
