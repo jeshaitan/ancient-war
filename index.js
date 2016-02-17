@@ -29,14 +29,14 @@ app.listen(process.env.PORT || 3000, function() {
 app.get('/', function(req, res) {
   var sess = req.session;
   sess.name;
-  sess.history = [{type: 'flavor', author: 'Server', description: 'Welcome to Ancient War.'}
+  sess.history = [{type: 'Welcome', author: 'Server', description: 'Welcome to Ancient War.'}
                 , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'}];
   res.render('index', {history: sess.history});
 });
 
 app.post('/do', function(req, res) {
-  //new or returning prompt
   var sess = req.session;
+  //new or returning prompt
   if(sess.history[sess.history.length - 1].type == 'newOrReturning') {
     if(isYes(req.body.input)) {
       sess.history.push({type: 'new', author: 'Unknown', description: req.body.input}
@@ -49,20 +49,36 @@ app.post('/do', function(req, res) {
     else {
       sess.history.push({type: 'newOrReturning', author: 'Server', description: 'Sorry, I don\'t understand.'});
     }
+    res.render('index', {history: sess.history});
   }
   //create new user -> step 1: register name and create password
   else if(sess.history[sess.history.length - 1].type == 'createNewUser') {
     sess.name = req.body.input;
-    sess.history.push({type: 'name', author: sess.name, description: sess.name}
-                    , {type: 'passwordPrompt1', author: 'Server', description: 'What will your password be?'});
+    db.Warriors.findOne({'name': sess.name}, function(err, doc) {
+      if(err)
+        console.log(err);
+      else {
+        if(doc) {
+          sess.history.push({type: 'name', author: sess.name, description: sess.name}
+                          , {type: 'createNewUser', author: 'Server', description: 'A warrior with this name already exists. Give me a different name.'});
+        }
+        else {
+          sess.history.push({type: 'name', author: sess.name, description: sess.name}
+                          , {type: 'passwordPrompt1', author: 'Server', description: 'What will your password be?'});
+        }
+      }
+      res.render('index', {history: sess.history});
+    });
+
   }
-  //create new user -> step 1.5: register password and list species
+  //create new user -> step 2: register password and list species
   else if(sess.history[sess.history.length - 1].type == 'passwordPrompt1') {
     sess.pass1 = req.body.input;
     sess.history.push({type: 'pass1', author: sess.name, description: Array(sess.pass1.length+1).join('*')})
     sess.history.push({type: 'passwordPrompt2', author: 'Server', description: 'One more time please?'});
+    res.render('index', {history: sess.history});
   }
-  //create new user -> step 2: register password and list species
+  //create new user -> step 3: register password and list species
   else if(sess.history[sess.history.length - 1].type == 'passwordPrompt2') {
     sess.pass2 = req.body.input;
     if(sess.pass1 != sess.pass2) {
@@ -77,8 +93,9 @@ app.post('/do', function(req, res) {
                       , {type: 'species', author: 'Server', description: 'Elf: Slender, pale beings that are extremely wise, yet lack many social skills.'}
                       , {type: 'species', author: 'Server', description: 'Naga: These reptilian humanoids are cunning, persistent, and deadly.'});
     }
+    res.render('index', {history: sess.history});
   }
-  //create new user -> step 3: register species and list vocations
+  //create new user -> step 4: register species and list vocations
   else if(sess.history[sess.history.length - 1].type == 'species') {
     sess.history.push({type: 'speciesChoice', author: sess.name, description: req.body.input});
     if(req.body.input == 'Human' || req.body.input == 'human')
@@ -98,8 +115,9 @@ app.post('/do', function(req, res) {
                       , {type: 'vocation', author: 'Server', description: 'Gladiator: Excels in close-range weapons, and can bare extremely heavy loads.'}
                       , {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful comabt-spells.'});
     }
+    res.render('index', {history: sess.history});
   }
-  //create new user -> step 4: register vocation and insert new user
+  //create new user -> step 5: register vocation and insert new user
   else if(sess.history[sess.history.length - 1].type == 'vocation') {
     sess.history.push({type: 'vocationChoice', author: sess.name, description: req.body.input});
     if(req.body.input == 'Knight' || req.body.input == 'knight')
@@ -121,19 +139,49 @@ app.post('/do', function(req, res) {
         vocation: sess.vocation
       }
       db.Warriors.insert(newUser, function(err, record) {
-        if(err) {
+        if(err)
           console.log(err);
-        }
         else {
-          console.log('success -- new user entered')
+          console.log('success -- new user entered');
         }
       });
     }
+    res.render('index', {history: sess.history});
   }
-
-  //refresh history
-  res.render('index', {history: sess.history});
-
+  //login if returning user
+  else if(sess.history[sess.history.length - 1].type == 'login') {
+    sess.name = req.body.input;
+    sess.history.push({type: 'name', author: sess.name, description: sess.name});
+    db.Warriors.findOne({'name': sess.name}, function(err, doc) {
+      if(err)
+        console.log(err);
+      else {
+        if(doc) {
+          sess.history.push({type: 'checkPass', author: 'Server', description: 'Ahh, yes. What is your password, ' + doc.name + ', the ' + doc.species + ' ' + doc.vocation + '?'});
+        }
+        else {
+          sess.history.push({type: '', author: 'Server', description: 'I know not of a warrior named ' + sess.name + '.'}
+                          , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'});
+        }
+      }
+      res.render('index', {history: sess.history});
+    });
+  }
+  //check password for login
+  else if(sess.history[sess.history.length - 1].type == 'checkPass') {
+    sess.history.push({type: 'pass', author: sess.name, description: Array(req.body.input.length+1).join('*')});
+    db.Warriors.findOne({'name': sess.name, 'password': req.body.input}, function(err, doc) {
+      if(err)
+        console.log(err);
+      else {
+        if(doc)
+          console.log('success -- user login');
+        else {
+          console.log('failure -- no such user');
+        }
+      }
+    });
+  }
 });
 
 function isYes(str) {

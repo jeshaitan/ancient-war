@@ -10,21 +10,20 @@ h1 {
 #intro {
   text-align: center;
   font-size: 50px;
-  margin-top: 2%
+  margin-top: 3%
 }
 
 #historyContainer {
   position: relative;
   height: 650px;
   width: 45%;
-  overflow: auto;
+  overflow-y: auto;
   border: 1px solid white;
   margin-left: 5%;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 
 #history {
-  border: 1px solid red;
   position: absolute;
   bottom: 0;
   left: 0;
