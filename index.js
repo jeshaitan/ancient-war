@@ -17,7 +17,7 @@ var db = mongojs(uri, ["Warriors"], {
     authMechanism: 'ScramSHA1'
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('Ancient War listening on port 3000.');
 });
 
