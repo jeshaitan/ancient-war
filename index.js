@@ -136,19 +136,28 @@ app.post('/do', function(req, res) {
         name: sess.name,
         password: sess.pass2,
         species: sess.species,
-        vocation: sess.vocation
+        vocation: sess.vocation,
+        hp: 5,
+        attack: 5,
+        defense: 5,
+        speed: 5,
+        charisma: 5,
+        luck: 5,
+        stealth: 5,
+        magicAttack: 5,
+        magicDefense: 5
       }
       db.Warriors.insert(newUser, function(err, record) {
         if(err)
           console.log(err);
         else {
-          console.log('success -- new user entered');
+          sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome to the lobby, ' + sess.name + '.'});
         }
+        res.render('index', {history: sess.history});
       });
     }
-    res.render('index', {history: sess.history});
   }
-  //login if returning user
+  //login if returning user -> step 1: ask for password
   else if(sess.history[sess.history.length - 1].type == 'login') {
     sess.name = req.body.input;
     sess.history.push({type: 'name', author: sess.name, description: sess.name});
@@ -167,7 +176,7 @@ app.post('/do', function(req, res) {
       res.render('index', {history: sess.history});
     });
   }
-  //check password for login
+  //login -> step 2: check password
   else if(sess.history[sess.history.length - 1].type == 'checkPass') {
     sess.history.push({type: 'pass', author: sess.name, description: Array(req.body.input.length+1).join('*')});
     db.Warriors.findOne({'name': sess.name, 'password': req.body.input}, function(err, doc) {
@@ -175,12 +184,17 @@ app.post('/do', function(req, res) {
         console.log(err);
       else {
         if(doc)
-          console.log('success -- user login');
+          sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome back to the lobby, ' + sess.name + '.'});
         else {
-          console.log('failure -- no such user');
+          sess.history.push({type: 'newOrReturning', author: 'Server', description: 'Sorry, I don\'t recognize a warrior with that name and password... Are you a new warrior?'});
         }
       }
+      res.render('index', {history: sess.history});
     });
+  }
+  //lobby
+  else if(sess.history[sess.history.length - 1].type == 'lobby') {
+
   }
 });
 
