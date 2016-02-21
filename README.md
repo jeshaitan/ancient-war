@@ -1,2 +1,2 @@
-# ancient-war
-A web-based MMO text rpg
+# Ancient War
+A web-based MMO text rpg.

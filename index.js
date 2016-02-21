@@ -31,7 +31,22 @@ app.get('/', function(req, res) {
   sess.name;
   sess.history = [{type: 'Welcome', author: 'Server', description: 'Welcome to Ancient War.'}
                 , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'}];
-  res.render('index', {history: sess.history});
+  sess.user = {
+    name: '?',
+    password: '?',
+    species: '?',
+    vocation: '?',
+    hp: '?',
+    mana: '?',
+    attack: '?',
+    defense: '?',
+    speed: '?',
+    magicAttack: '?',
+    magicDefense: '?',
+    charisma: '?',
+    luck: '?'
+  }
+  res.render('index', {history: sess.history, user: sess.user});
 });
 
 app.post('/do', function(req, res) {
@@ -49,7 +64,7 @@ app.post('/do', function(req, res) {
     else {
       sess.history.push({type: 'newOrReturning', author: 'Server', description: 'Sorry, I don\'t understand.'});
     }
-    res.render('index', {history: sess.history});
+    res.render('index', {history: sess.history, user: sess.user});
   }
   //create new user -> step 1: register name and create password
   else if(sess.history[sess.history.length - 1].type == 'createNewUser') {
@@ -67,7 +82,7 @@ app.post('/do', function(req, res) {
                           , {type: 'passwordPrompt1', author: 'Server', description: 'What will your password be?'});
         }
       }
-      res.render('index', {history: sess.history});
+      res.render('index', {history: sess.history, user: sess.user});
     });
 
   }
@@ -76,7 +91,7 @@ app.post('/do', function(req, res) {
     sess.pass1 = req.body.input;
     sess.history.push({type: 'pass1', author: sess.name, description: Array(sess.pass1.length+1).join('*')})
     sess.history.push({type: 'passwordPrompt2', author: 'Server', description: 'One more time please?'});
-    res.render('index', {history: sess.history});
+    res.render('index', {history: sess.history, user: sess.user});
   }
   //create new user -> step 3: register password and list species
   else if(sess.history[sess.history.length - 1].type == 'passwordPrompt2') {
@@ -93,7 +108,7 @@ app.post('/do', function(req, res) {
                       , {type: 'species', author: 'Server', description: 'Elf: Slender, pale beings that are extremely wise, yet lack many social skills.'}
                       , {type: 'species', author: 'Server', description: 'Naga: These reptilian humanoids are cunning, persistent, and deadly.'});
     }
-    res.render('index', {history: sess.history});
+    res.render('index', {history: sess.history, user: sess.user});
   }
   //create new user -> step 4: register species and list vocations
   else if(sess.history[sess.history.length - 1].type == 'species') {
@@ -115,7 +130,7 @@ app.post('/do', function(req, res) {
                       , {type: 'vocation', author: 'Server', description: 'Gladiator: Excels in close-range weapons, and can bare extremely heavy loads.'}
                       , {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful comabt-spells.'});
     }
-    res.render('index', {history: sess.history});
+    res.render('index', {history: sess.history, user: sess.user});
   }
   //create new user -> step 5: register vocation and insert new user
   else if(sess.history[sess.history.length - 1].type == 'vocation') {
@@ -132,28 +147,15 @@ app.post('/do', function(req, res) {
       sess.history.push({type: 'vocation', author: 'Server', description: 'Sorry, I don\'t understand.'});
     if(sess.vocation) {
       sess.history.push({type: 'inserting', author: 'Server', description: 'I\'m memorizing your choices...'})
-      var newUser = {
-        name: sess.name,
-        password: sess.pass2,
-        species: sess.species,
-        vocation: sess.vocation,
-        hp: 5,
-        attack: 5,
-        defense: 5,
-        speed: 5,
-        charisma: 5,
-        luck: 5,
-        stealth: 5,
-        magicAttack: 5,
-        magicDefense: 5
-      }
+      var newUser = createUser(sess.name, sess.pass2, sess.species, sess.vocation);
+      sess.user = newUser;
       db.Warriors.insert(newUser, function(err, record) {
         if(err)
           console.log(err);
         else {
           sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome to the lobby, ' + sess.name + '.'});
         }
-        res.render('index', {history: sess.history});
+        res.render('index', {history: sess.history, user: sess.user});
       });
     }
   }
@@ -173,7 +175,7 @@ app.post('/do', function(req, res) {
                           , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'});
         }
       }
-      res.render('index', {history: sess.history});
+      res.render('index', {history: sess.history, user: sess.user});
     });
   }
   //login -> step 2: check password
@@ -183,13 +185,16 @@ app.post('/do', function(req, res) {
       if(err)
         console.log(err);
       else {
-        if(doc)
+        if(doc) {
+          sess.user = doc;
+          console.log(doc)
           sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome back to the lobby, ' + sess.name + '.'});
+        }
         else {
           sess.history.push({type: 'newOrReturning', author: 'Server', description: 'Sorry, I don\'t recognize a warrior with that name and password... Are you a new warrior?'});
         }
       }
-      res.render('index', {history: sess.history});
+      res.render('index', {history: sess.history, user: sess.user});
     });
   }
   //lobby
@@ -197,6 +202,46 @@ app.post('/do', function(req, res) {
 
   }
 });
+function createUser(name, password, species, vocation) {
+  var dummy = {
+    name: name,
+    password: password,
+    species: species,
+    vocation: vocation,
+    hp: Math.floor(Math.random() * (10 - 5 + 1)) + 5,
+    mana: Math.floor(Math.random() * (10 - 5 + 1)) + 5,
+    attack: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    defense: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    speed: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    magicAttack: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    magicDefense: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    charisma: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    luck: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+  }
+  if(species == 'Human') {
+    dummy.hp += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.luck += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+  }
+  else if(species == 'Dwarf') {
+    dummy.hp += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.defense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.charisma += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.speed -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+  }
+  else if(species == 'Elf') {
+    dummy.luck += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.speed += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.magicDefense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.hp -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+  }
+  else if(species == 'Naga') {
+    dummy.charisma += MaMath.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.defense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.magicDefense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.luck -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+  }
+  return dummy;
+}
 
 function isYes(str) {
   return (str == 'y') || (str == 'yes') || (str == 'Y') || (str == 'Yes')
