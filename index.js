@@ -2,7 +2,8 @@ var express = require('express')
   , bodyParser = require('body-parser')
   , mongodb = require('mongodb')
   , mongojs = require('mongojs')
-  , session = require('express-session');
+  , session = require('express-session')
+  , chance = require('chance');
 
 var app = express();
 
@@ -21,6 +22,8 @@ var uri = 'mongodb://warrior:warrioruser@ds011238.mongolab.com:11238/ancient-war
 var db = mongojs(uri, ["Warriors"], {
     authMechanism: 'ScramSHA1'
 });
+
+var chance = new chance();
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Ancient War listening on port 3000.');
@@ -208,38 +211,42 @@ function createUser(name, password, species, vocation) {
     password: password,
     species: species,
     vocation: vocation,
-    hp: Math.floor(Math.random() * (10 - 5 + 1)) + 5,
-    mana: Math.floor(Math.random() * (10 - 5 + 1)) + 5,
-    attack: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    defense: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    speed: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    magicAttack: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    magicDefense: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    charisma: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
-    luck: Math.floor(Math.random() * (5 - 2 + 1)) + 2,
+    hp: chance.integer({min: 5, max: 10}),
+    mana: chance.integer({min: 5, max: 10}),
+    attack: chance.integer({min: 2, max: 5}),
+    defense: chance.integer({min: 2, max: 5}),
+    speed: chance.integer({min: 2, max: 5}),
+    magicAttack: chance.integer({min: 2, max: 5}),
+    magicDefense: chance.integer({min: 2, max: 5}),
+    charisma: chance.integer({min: 2, max: 5}),
+    luck: chance.integer({min: 2, max: 5})
   }
   if(species == 'Human') {
-    dummy.hp += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.luck += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.hp += chance.integer({min: 1, max: 4});
+    dummy.luck += chance.integer({min: 1, max: 4});
   }
   else if(species == 'Dwarf') {
-    dummy.hp += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.defense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.charisma += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.speed -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.hp += chance.integer({min: 1, max: 4});
+    dummy.defense += chance.integer({min: 1, max: 4});
+    dummy.charisma += chance.integer({min: 1, max: 4});
+    dummy.speed -= chance.integer({min: 1, max: 4});
   }
   else if(species == 'Elf') {
-    dummy.luck += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.speed += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.magicDefense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.hp -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.luck += chance.integer({min: 1, max: 4});
+    dummy.speed += chance.integer({min: 1, max: 4});
+    dummy.magicDefense += chance.integer({min: 1, max: 4});
+    dummy.hp -= chance.integer({min: 1, max: 4});
   }
   else if(species == 'Naga') {
-    dummy.charisma += MaMath.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.defense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.magicDefense += Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-    dummy.luck -= Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    dummy.charisma += chance.integer({min: 1, max: 4});
+    dummy.defense += chance.integer({min: 1, max: 4});
+    dummy.magicDefense += chance.integer({min: 1, max: 4});
+    dummy.luck -= chance.integer({min: 1, max: 4});
   }
+  if(dummy.speed < 0)
+    dummy.speed = 0;
+  if(dummy.luck < 0)
+    dummy.luck - 0;
   return dummy;
 }
 
