@@ -6,7 +6,7 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=MedievalSharp')
   body
     h1(id='intro') Welcome to Ancient War.
-    div(id='historyContainer') 
+    div(id='leftWrap') 
       table(id='history')
         each action, i in history
           tr
@@ -15,10 +15,10 @@ html
             else
               td(class='author')= action.author + ':'
             td(class='description')= action.description
-    div(id='inputContainer')
-      form(action='do', method='post', enctype='application/json')
-          input(id='actionField', type='text', name='input', autofocus='autofocus', autocomplete='off')
-    div(id='statsContainer')
+      div(id='inputContainer')
+        form(action='do', method='post', enctype='application/json')
+            input(id='actionField', type='text', name='input', autofocus='autofocus', autocomplete='off')
+    div(id='rightWrap')
       table(id='stats')
         tr
           td 'Hitpoints: ' #{user.hp}
@@ -32,5 +32,7 @@ html
           td 'Defense: ' #{user.defense}
           td 'Magic Defense: ' #{user.magicDefense}
           td 'Luck: ' #{user.luck}
+      table(id='inven')
+          
             
           
