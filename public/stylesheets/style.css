@@ -44,12 +44,7 @@ h1 {
 
 .author {
   font-family: 'MedievalSharp', monospace;
-  color: red;
-}
-
-.sauthor {
-  font-family: 'MedievalSharp', monospace;
-  color: blue;
+  color: white;
 }
 
 .description {
@@ -85,4 +80,8 @@ h1 {
   min-height: 200px;
   height: 200px;
   margin-top: 50px;
+}
+
+.item {
+  padding-left: 500x;
 }

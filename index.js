@@ -46,6 +46,9 @@ app.get('/', function(req, res) {
   , magicDefense: '?'
   , charisma: '?'
   , luck: '?'
+  , items: ['?']
+  , weapons: ['?']
+  , armor: ['?']
   }
   res.render('index', {history: sess.history, user: sess.user});
 });
