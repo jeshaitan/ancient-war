@@ -1,0 +1,11 @@
+{
+  "sPotion":{
+    "name":"Small Potion"
+  },
+  "sElixir":{
+    "name":"Small Elixir"
+  },
+  "bread":{
+    "name":"Loaf of Bread"
+  }
+}

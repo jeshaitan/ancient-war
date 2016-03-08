@@ -1,0 +1,20 @@
+{
+  "unknown": {
+     "name":"?",
+     "password":"?",
+     "species":"?",
+     "vocation":"?",
+     "hp":"?",
+     "mana":"?",
+     "attack":"?",
+     "defense":"?",
+     "speed":"?",
+     "magicAttack":"?",
+     "magicDefense":"?",
+     "charisma":"?",
+     "luck":"?",
+     "items":["?"],
+     "weapons":["?"],
+     "armor":["?"]
+  }
+}

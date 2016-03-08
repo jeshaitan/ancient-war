@@ -36,9 +36,12 @@ html
           th Equipped Armor:
         each item, i in user.items
           tr
-            td(class='item') #{user.items[i]}
-            td(class='item') #{user.weapons[i]}
-            td(class='item') #{user.armor[i]}
+            if typeof(user.items[i]) !== 'undefined'
+              td(class='item') #{user.items[i].name}
+            if typeof(user.weapons[i]) !== 'undefined'
+              td(class='item') #{user.weapons[i].name}
+            if typeof(user.armor[i]) !== 'undefined'
+              td(class='item') #{user.armor[i].name}
           
             
           

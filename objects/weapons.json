@@ -1,0 +1,30 @@
+{
+  "plainBroadsword":{
+    "name": "Plain Broadsword",
+    "dmg":4,
+    "acc":2,
+    "spd":2,
+    "eff":"none"
+  },
+  "plainLongbow":{
+    "name": "Plain Longbow",
+    "dmg":3,
+    "acc":3,
+    "spd":2,
+    "eff":"none"
+  },
+  "plainBattleaxe":{
+    "name": "Plain Battleaxe",
+    "dmg":5,
+    "acc":2,
+    "spd":1,
+    "eff":"none"
+  },
+  "plainWand":{
+    "name": "Plain Wand",
+    "dmg":4,
+    "acc":3,
+    "spd":1,
+    "eff":"none"
+  }
+}

@@ -1,27 +1,31 @@
-var chance = require('chance');
+var chance = require('chance')
+    fs = require('fs');
 
 chance = new chance();
 
 var exports = module.exports = {};
+var armorList = JSON.parse(fs.readFileSync('objects/armor.json')),
+    weaponsList = JSON.parse(fs.readFileSync('objects/weapons.json')),
+    itemsList = JSON.parse(fs.readFileSync('objects/items.json'));
 
 exports.createUser = function(name, password, species, vocation) {
   var dummy = {
-    name: name
-  , password: password
-  , species: species
-  , vocation: vocation
-  , hp: chance.integer({min: 5, max: 10})
-  , mana: chance.integer({min: 5, max: 10})
-  , attack: chance.integer({min: 2, max: 5})
-  , defense: chance.integer({min: 2, max: 5})
-  , speed: chance.integer({min: 2, max: 5})
-  , magicAttack: chance.integer({min: 2, max: 5})
-  , magicDefense: chance.integer({min: 2, max: 5})
-  , charisma: chance.integer({min: 2, max: 5})
-  , luck: chance.integer({min: 2, max: 5})
-  , items: ['Potion', 'Elixir', 'Loaf of bread']
-  , weapons: []
-  , armor: []
+    name: name,
+    password: password,
+    species: species,
+    vocation: vocation,
+    hp: chance.integer({min: 5, max: 10}),
+    mana: chance.integer({min: 5, max: 10}),
+    attack: chance.integer({min: 2, max: 5}),
+    defense: chance.integer({min: 2, max: 5}),
+    speed: chance.integer({min: 2, max: 5}),
+    magicAttack: chance.integer({min: 2, max: 5}),
+    magicDefense: chance.integer({min: 2, max: 5}),
+    charisma: chance.integer({min: 2, max: 5}),
+    luck: chance.integer({min: 2, max: 5}),
+    items: [itemsList.sPotion, itemsList.sElixir, itemsList.bread],
+    weapons: [],
+    armor: []
   }
   if(species == 'Human') {
     dummy.hp += chance.integer({min: 1, max: 4});
@@ -50,33 +54,22 @@ exports.createUser = function(name, password, species, vocation) {
   if(dummy.luck < 0)
     dummy.luck = 0;
   if(vocation == 'Knight') {
-    dummy.weapons.push('Plain Broadsword');
-    dummy.armor.push('Rusty Chainmail');
+    dummy.weapons.push(weaponsList.plainBroadswoard);
+    dummy.armor.push(armorList.rustyChainmail);
   }
   else if(vocation == 'Archer') {
-    dummy.weapons.push('Plain Longbow');
-    dummy.armor.push('Tattered Cloak');
+    dummy.weapons.push(weaponsList.plainLongbow);
+    dummy.armor.push(armorList.tatteredCloak);
   }
   else if(vocation == 'Gladiator') {
-    dummy.weapons.push('Plain Battleaxe');
-    dummy.armor.push('Rusty Platemail');
+    dummy.weapons.push(weaponsList.plainBattleaxe);
+    dummy.armor.push(armorList.rustyPlatemail);
   }
   else if(vocation == 'Wizard') {
-    dummy.weapons.push('Plain Wand');
-    dummy.armor.push('Tattered Robe');
+    dummy.weapons.push(weaponsList.plainWand);
+    dummy.armor.push(armorList.tatteredRobe);
   }
   return dummy;
-}
-
-exports.zip = function() {
-    var args = [].slice.call(arguments);
-    var longest = args.reduce(function(a,b){
-        return a.length>b.length ? a : b
-    }, []);
-
-    return longest.map(function(_,i){
-        return args.map(function(array){return array[i]})
-    });
 }
 
 exports.isYes = function(str) {

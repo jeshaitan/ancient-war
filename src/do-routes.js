@@ -7,12 +7,12 @@ exports.intro = function(req, res, sess, db) {
   //new or returning prompt
   if(sess.history[sess.history.length - 1].type == 'newOrReturning') {
     if(gameUtils.isYes(req.body.input)) {
-      sess.history.push({type: 'new', author: 'Unknown', description: req.body.input}
-                      , {type: 'createNewUser', author: 'Server', description: 'Greetings! What is your name?'});
+      sess.history.push({type: 'new', author: 'Unknown', description: req.body.input},
+                        {type: 'createNewUser', author: 'Server', description: 'Greetings! What is your name?'});
     }
     else if(gameUtils.isNo(req.body.input)) {
-      sess.history.push({type: 'old', author: 'Unknown', description: req.body.input}
-                      , {type: 'login', author: 'Server', description: 'Welcome back. Who is this again?'});
+      sess.history.push({type: 'old', author: 'Unknown', description: req.body.input},
+                        {type: 'login', author: 'Server', description: 'Welcome back. Who is this again?'});
     }
     else {
       sess.history.push({type: 'newOrReturning', author: 'Server', description: 'Sorry, I don\'t understand.'});
@@ -27,12 +27,12 @@ exports.intro = function(req, res, sess, db) {
         console.log(err);
       else {
         if(doc) {
-          sess.history.push({type: 'name', author: sess.name, description: sess.name}
-                          , {type: 'createNewUser', author: 'Server', description: 'A warrior with this name already exists. Give me a different name.'});
+          sess.history.push({type: 'name', author: sess.name, description: sess.name},
+                            {type: 'createNewUser', author: 'Server', description: 'A warrior with this name already exists. Give me a different name.'});
         }
         else {
-          sess.history.push({type: 'name', author: sess.name, description: sess.name}
-                          , {type: 'passwordPrompt1', author: 'Server', description: 'What will your password be?'});
+          sess.history.push({type: 'name', author: sess.name, description: sess.name},
+                            {type: 'passwordPrompt1', author: 'Server', description: 'What will your password be?'});
         }
       }
       res.render('index', {history: sess.history, user: sess.user});
@@ -55,11 +55,11 @@ exports.intro = function(req, res, sess, db) {
     }
     else {
       sess.history.push({type: 'pass2', author: sess.name, description: Array(sess.pass2.length+1).join('*')});
-      sess.history.push({type: 'chooseSpecies', author: 'Server', description: 'What species are you?'}
-                      , {type: 'species', author: 'Server', description: 'Human: Ingenuitive, stubborn creatures that have an unstable balance of good and evil within them.'}
-                      , {type: 'species', author: 'Server', description: 'Dwarf: Brawny and short, this species has a great sense of humor, and is mostly good.'}
-                      , {type: 'species', author: 'Server', description: 'Elf: Slender, pale beings that are extremely wise, yet lack many social skills.'}
-                      , {type: 'species', author: 'Server', description: 'Naga: These reptilian humanoids are cunning, persistent, and deadly.'});
+      sess.history.push({type: 'chooseSpecies', author: 'Server', description: 'What species are you?'},
+                        {type: 'species', author: 'Server', description: 'Human: Ingenuitive, stubborn creatures that have an unstable balance of good and evil within them.'},
+                        {type: 'species', author: 'Server', description: 'Dwarf: Brawny and short, this species has a great sense of humor, and is mostly good.'},
+                        {type: 'species', author: 'Server', description: 'Elf: Slender, pale beings that are extremely wise, yet lack many social skills.'},
+                        {type: 'species', author: 'Server', description: 'Naga: These reptilian humanoids are cunning, persistent, and deadly.'});
     }
     res.render('index', {history: sess.history, user: sess.user});
   }
@@ -77,11 +77,11 @@ exports.intro = function(req, res, sess, db) {
     else
       sess.history.push({type: 'species', author: 'Server', description: 'Sorry, I don\'t understand.'});
     if(sess.species) {
-      sess.history.push({type: 'chooseVocation', author: 'Server', description: 'What vocation are you?'}
-                      , {type: 'vocation', author: 'Server', description: 'Knight: Skilled with many weapons and armor types; have many combat-related abilities.'}
-                      , {type: 'vocation', author: 'Server', description: 'Archer: Weilds ranged weaponry with great agility and patience.'}
-                      , {type: 'vocation', author: 'Server', description: 'Gladiator: Excels in close-range weapons, and can bare extremely heavy loads.'}
-                      , {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful comabt-spells.'});
+      sess.history.push({type: 'chooseVocation', author: 'Server', description: 'What vocation are you?'},
+                        {type: 'vocation', author: 'Server', description: 'Knight: Skilled with many weapons and armor types; have many combat-related abilities.'},
+                        {type: 'vocation', author: 'Server', description: 'Archer: Weilds ranged weaponry with great agility and patience.'},
+                        {type: 'vocation', author: 'Server', description: 'Gladiator: Excels in close-range weapons, and can bare extremely heavy loads.'},
+                        {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful comabt-spells.'});
     }
     res.render('index', {history: sess.history, user: sess.user});
   }
@@ -124,8 +124,8 @@ exports.intro = function(req, res, sess, db) {
           sess.history.push({type: 'checkPass', author: 'Server', description: 'Ahh, yes. What is your password, ' + doc.name + ', the ' + doc.species + ' ' + doc.vocation + '?'});
         }
         else {
-          sess.history.push({type: '', author: 'Server', description: 'I know not of a warrior named ' + sess.name + '.'}
-                          , {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'});
+          sess.history.push({type: '', author: 'Server', description: 'I know not of a warrior named ' + sess.name + '.'},
+                            {type: 'newOrReturning', author: 'Server', description: 'Are you a new warrior?'});
         }
       }
       res.render('index', {history: sess.history, user: sess.user});
@@ -153,5 +153,13 @@ exports.intro = function(req, res, sess, db) {
 
 //lobby route handler
 exports.lobby = function(req, res, sess, db) {
-  
+  if((req.body.input == 'journey') || (req.body.input == 'Journey') || (req.body.input == 'j') || (req.body.input == 'J')) {
+    sess.history.push({type: 'reqJourney', author: sess.name, description: req.body.input});
+    sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome back to the lobby!'});
+  }
+  else {
+    sess.history.push({type: 'reqUnknown', author: sess.name, description: req.body.input});
+    sess.history.push({type: 'lobby', author: 'Server', description: 'I don\'t understand that request.'});
+  }
+  res.render('index', {history: sess.history, user: sess.user});
 }

@@ -1,0 +1,26 @@
+{
+  "rustyChainmail":{
+    "name": "Rusty Chainmail",
+    "def":2,
+    "enc":2,
+    "eff":"none"
+  },
+  "tatteredCloak":{
+    "name": "Tattered Cloak",
+    "def":1,
+    "enc":0,
+    "eff":"none"
+  },
+  "rustyPlatemail":{
+    "name": "Rusty Platemail",
+    "def":3,
+    "enc":3,
+    "eff":"none"
+  },
+  "tatteredRobe":{
+    "name": "Tattered Robe",
+    "def":1,
+    "enc":0,
+    "eff":"none"
+  }
+}
