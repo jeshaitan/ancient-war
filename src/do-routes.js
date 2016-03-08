@@ -153,8 +153,12 @@ exports.intro = function(req, res, sess, db) {
 
 //lobby route handler
 exports.lobby = function(req, res, sess, db) {
-  if((req.body.input == 'journey') || (req.body.input == 'Journey') || (req.body.input == 'j') || (req.body.input == 'J')) {
+  if(req.body.input == 'journey' || req.body.input == 'Journey' || req.body.input == 'j' || req.body.input == 'J') {
     sess.history.push({type: 'reqJourney', author: sess.name, description: req.body.input});
+    sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome back to the lobby!'});
+  }
+  else if(req.body.input == 'shop' || req.body.input == 'Shop' || req.body.input == 's' || req.body.input == 'S') {
+    sess.history.push({type: 'reqShop', author: sess.name, description: req.body.input});
     sess.history.push({type: 'lobby', author: 'Server', description: 'Welcome back to the lobby!'});
   }
   else {

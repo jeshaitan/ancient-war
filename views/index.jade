@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=MedievalSharp')
   body
-    h1(id='intro') Welcome to Ancient War.
+    h1(id='intro') ⚔ Welcome to Ancient War ⚔
     div(id='leftWrap') 
       table(id='history')
         each action, i in history
@@ -16,6 +16,12 @@ html
         form(action='do', method='post', enctype='application/json')
             input(id='actionField', type='text', name='input', autofocus='autofocus', autocomplete='off')
     div(id='rightWrap')
+      table(id='info')
+        tr
+          th Lobby Commands
+        tr 
+          td Shop (S): Go to the shop.
+          td Journey (J): Go out into the wilderness. 
       table(id='stats')
         tr
           td Hitpoints: #{user.hp}
@@ -41,7 +47,6 @@ html
             if typeof(user.weapons[i]) !== 'undefined'
               td(class='item') #{user.weapons[i].name}
             if typeof(user.armor[i]) !== 'undefined'
-              td(class='item') #{user.armor[i].name}
-          
+              td(class='item') #{user.armor[i].name}          
             
           
