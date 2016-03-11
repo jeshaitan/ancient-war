@@ -12,6 +12,8 @@ exports.createUser = function(name, password, species, vocation) {
   var dummy = {
     name: name,
     password: password,
+    gold: 0,
+    experience: 0,
     species: species,
     vocation: vocation,
     hp: chance.integer({min: 5, max: 10}),

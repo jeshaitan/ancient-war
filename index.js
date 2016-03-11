@@ -4,7 +4,8 @@ var express = require('express'),
     mongojs = require('mongojs'),
     session = require('express-session'),
     fs = require('fs'),
-    doRoutes = require('./src/do-routes.js')
+    login = require('./src/loginHandler.js'),
+    lobby = require('./src/lobbyHandler.js');
 
 var app = express();
 
@@ -41,7 +42,7 @@ app.get('/', function(req, res) {
 app.post('/do', function(req, res) {
   var sess = req.session;
   if(sess.history[sess.history.length - 1].type == 'lobby')
-    doRoutes.lobby(req, res, sess, db);
+    lobby.main(req, res, sess, db);
   else
-    doRoutes.intro(req, res, sess, db);
+    login.main(req, res, sess, db);
 });
