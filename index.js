@@ -5,7 +5,9 @@ var express = require('express'),
     session = require('express-session'),
     fs = require('fs'),
     login = require('./src/loginHandler.js'),
-    lobby = require('./src/lobbyHandler.js');
+    lobby = require('./src/lobbyHandler.js'),
+    journey = require('./src/journeyHandler.js'),
+    shop = require('./src/shopHandler.js');
 
 var app = express();
 
@@ -41,8 +43,18 @@ app.get('/', function(req, res) {
 
 app.post('/do', function(req, res) {
   var sess = req.session;
-  if(sess.history[sess.history.length - 1].type == 'lobby')
-    lobby.main(req, res, sess, db);
-  else
-    login.main(req, res, sess, db);
+  //no current branch, lobby or login
+  if(!sess.step) {
+    if(sess.history[sess.history.length - 1].type == 'lobby')
+      lobby.main(req, res, sess, db);
+    else
+      login.main(req, res, sess, db);
+  }
+  //current branch exists
+  else {
+    if(sess.history[sess.history.length - 1].type == 'journey')
+      journey.main(req, res, sess, db);
+    else if(sess.history[sess.history.length - 1].type == 'shop')
+      shop.main(req, res, sess, db);
+  }
 });

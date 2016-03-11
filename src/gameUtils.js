@@ -6,7 +6,92 @@ chance = new chance();
 var exports = module.exports = {};
 var armorList = JSON.parse(fs.readFileSync('objects/armor.json')),
     weaponsList = JSON.parse(fs.readFileSync('objects/weapons.json')),
-    itemsList = JSON.parse(fs.readFileSync('objects/items.json'));
+    itemsList = JSON.parse(fs.readFileSync('objects/items.json')),
+    enemiesList = JSON.parse(fs.readFileSync('objects/enemies.json'));
+
+exports.enemy = function(biome) {
+  if(biome == 'woods') {
+    var rarity = chance.integer({min: 1, max: 10});
+    if(rarity >= 9) {
+      var model = enemiesList.tiger;
+      model.level = chance.integer({min: 5, max: 7});
+      model.atk = level + 1;
+      model.def = level - 1;
+      model.spd = level;
+      return model;
+    }
+    else if(rarity >= 3) {
+      var model = enemiesList.bear;
+      model.level = chance.integer({min: 3, max: 4});
+      model.atk = level - 1;
+      model.def = level;
+      model.spd = level;
+      return model;
+    }
+    else if(rarity >= 1) {
+      var model = enemiesList.sparrow;
+      model.level = chance.integer({min: 1, max: 3});
+      model.atk = level;
+      model.def = level;
+      model.spd = level + 2;
+      return model;
+    }
+  }
+  else if(biome == 'caves') {
+    var rarity = chance.integer({min: 1, max: 10});
+    if(rarity >= 9) {
+      var model = enemiesList.golem;
+      model.level = chance.integer({min: 15, max: 20});
+      model.atk = level;
+      model.def = level + 5;
+      model.spd = level - 1;
+      return model;
+    }
+    else if(rarity >= 3) {
+      var model = enemiesList.ogre;
+      model.level = chance.integer({min: 9, max: 13});
+      model.atk = level + 2;
+      model.def = level;
+      model.spd = level - 1;
+      return model;
+    }
+    else if(rarity >= 1) {
+      var model = enemiesList.bat;
+      model.level = chance.integer({min: 5, max: 7});
+      model.atk = level;
+      model.def = level;
+      model.spd = level + 3;
+      return model;
+    }
+  }
+  else if(biome == 'mountains') {
+    var rarity = chance.integer({min: 1, max: 10});
+    if(rarity >= 9) {
+      var model = enemiesList.manticore;
+      model.level = chance.integer({min: 50, max: 100});
+      model.atk = level + 5;
+      model.def = level + 5;
+      model.spd = level;
+      return model;
+    }
+    else if(rarity >= 3) {
+      var model = enemiesList.griffin;
+      model.level = chance.integer({min: 28, max: 45});
+      model.atk = level + 2;
+      model.def = level;
+      model.spd = level + 2;
+      return model;
+    }
+    else if(rarity >= 1) {
+      var model = enemiesList.willowisp;
+      model.level = chance.integer({min: 15, max: 20});
+      model.atk = level - 2;
+      model.def = level;
+      model.spd = level + 10;
+      return model;
+    }
+  }
+}
 
 exports.createUser = function(name, password, species, vocation) {
   var dummy = {

@@ -1,0 +1,38 @@
+{
+  "tiger":{
+    "name": "Tiger",
+    "exp": 14,
+  },
+  "bear":{
+    "name": "Bear",
+    "exp": 6,
+  },
+  "sparrow":{
+    "name": "Sparrow",
+    "exp": 3,
+  },
+  "golem":{
+    "name": "Golem",
+    "exp": 40,
+  },
+  "ogre":{
+    "name": "Ogre",
+    "exp": 25,
+  },
+  "bat":{
+    "name": "Bat",
+    "exp": 15,
+  },
+  "manticore":{
+    "name": "Manticore",
+    "exp": 100,
+  },
+  "griffin":{
+    "name": "Griffin",
+    "exp": 70,
+  },
+  "willowisp":{
+    "name": "Will-O'-The-Wisp",
+    "exp": 45,
+  }
+}
