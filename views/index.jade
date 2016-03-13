@@ -30,19 +30,26 @@ html
         tr
           td
           td Item (I): Use an item from your inventory.
-      table(id='stats')
-        tr
-          td Hitpoints: #{user.maxhp}
-          td Mana: #{user.maxmp}
-          td Speed: #{user.speed}
-        tr
-          td Attack: #{user.attack}
-          td Magic Attack: #{user.magicAttack}
-          td Charisma: #{user.charisma}
-        tr 
-          td Defense: #{user.defense}
-          td Magic Defense: #{user.magicDefense}
-          td Luck: #{user.luck}
+      div(id='midWrap')
+        table(id='stats')
+          tr
+            td Hitpoints: #{user.maxhp}
+            td Mana: #{user.maxmp}
+            td Speed: #{user.speed}
+          tr
+            td Attack: #{user.attack}
+            td Magic Attack: #{user.magicAttack}
+            td Charisma: #{user.charisma}
+          tr 
+            td Defense: #{user.defense}
+            td Magic Defense: #{user.magicDefense}
+            td Luck: #{user.luck}
+        table(id='skills')
+          tr
+            th Spells and Abilities:
+          each skill, i in user.skills
+            tr
+              td #{user.skills[i].name}
       table(id='inven')
         tr
           th Inventory:

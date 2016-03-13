@@ -1,0 +1,17 @@
+{
+  "bolt":{
+    "name":"Energy Bolt",
+    "type":"damaging",
+    "val":4
+  },
+  "rage":{
+    "name":"Rage Aura",
+    "type":"buff atk",
+    "val":2
+  },
+  "blind":{
+    "name":"Shadow Blind",
+    "type":"debuff def",
+    "val":2
+  }
+}

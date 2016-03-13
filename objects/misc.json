@@ -17,6 +17,7 @@
      "luck":"?",
      "items":["?"],
      "weapons":["?"],
-     "armor":["?"]
+     "armor":["?"],
+     "skills":["?"]
   }
 }

@@ -7,8 +7,9 @@ var exports = module.exports = {};
 
 var armorList = JSON.parse(fs.readFileSync('objects/armor.json')),
     weaponsList = JSON.parse(fs.readFileSync('objects/weapons.json')),
-    itemsList = JSON.parse(fs.readFileSync('objects/items.json'))
-    enemiesList = JSON.parse(fs.readFileSync('objects/enemies.json'));
+    itemsList = JSON.parse(fs.readFileSync('objects/items.json')),
+    enemiesList = JSON.parse(fs.readFileSync('objects/enemies.json')),
+    magic = JSON.parse(fs.readFileSync('objects/magic.json'));
 
 exports.enemyAction = function(sess) {
   var dealt = Math.max(0, sess.enemy.atk - totalDefense(sess.user) + chance.integer({min: -1, max: 2}));
@@ -165,7 +166,8 @@ exports.createUser = function(name, password, species, vocation) {
     luck: chance.integer({min: 2, max: 5}),
     items: [itemsList.sPotion, itemsList.sElixir, itemsList.bread],
     weapons: [],
-    armor: []
+    armor: [],
+    skills: []
   }
   if(species == 'Human') {
     var hpboost = chance.integer({min: 1, max: 4});
@@ -202,10 +204,12 @@ exports.createUser = function(name, password, species, vocation) {
   if(vocation == 'Knight') {
     model.weapons.push(weaponsList.plainBroadswoard);
     model.armor.push(armorList.rustyChainmail);
+    model.skills.push(magic.rage);
   }
   else if(vocation == 'Archer') {
     model.weapons.push(weaponsList.plainLongbow);
     model.armor.push(armorList.tatteredCloak);
+    model.skills.push(magic.blind);
   }
   else if(vocation == 'Gladiator') {
     model.weapons.push(weaponsList.plainBattleaxe);
@@ -214,6 +218,7 @@ exports.createUser = function(name, password, species, vocation) {
   else if(vocation == 'Wizard') {
     model.weapons.push(weaponsList.plainWand);
     model.armor.push(armorList.tatteredRobe);
+    model.skills.push(magic.bolt);
   }
   return model;
 }

@@ -22,7 +22,7 @@
   },
   "plainWand":{
     "name": "Plain Wand",
-    "dmg":4,
+    "dmg":1,
     "acc":3,
     "spd":1,
     "eff":"none"

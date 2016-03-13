@@ -1,11 +1,14 @@
 {
   "sPotion":{
-    "name":"Small Potion"
+    "name":"Small Potion",
+    "gld": 10
   },
   "sElixir":{
-    "name":"Small Elixir"
+    "name":"Small Elixir",
+    "gld": 10
   },
   "bread":{
-    "name":"Loaf of Bread"
+    "name":"Loaf of Bread",
+    "gld": 10
   }
 }
