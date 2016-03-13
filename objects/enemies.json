@@ -2,37 +2,46 @@
   "tiger":{
     "name": "Tiger",
     "exp": 14,
+    "gld": 10
   },
   "bear":{
     "name": "Bear",
     "exp": 6,
+    "gld": 4
   },
   "sparrow":{
     "name": "Sparrow",
     "exp": 3,
+    "gld": 2
   },
   "golem":{
     "name": "Golem",
     "exp": 40,
+    "gld": 35
   },
   "ogre":{
     "name": "Ogre",
     "exp": 25,
+    "gld": 20
   },
   "bat":{
     "name": "Bat",
     "exp": 15,
+    "gld": 10
   },
   "manticore":{
     "name": "Manticore",
     "exp": 100,
+    "gld": 90
   },
   "griffin":{
     "name": "Griffin",
     "exp": 70,
+    "gld": 60
   },
   "willowisp":{
     "name": "Will-O'-The-Wisp",
     "exp": 45,
+    "gld": 40
   }
 }

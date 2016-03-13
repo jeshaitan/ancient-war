@@ -20,13 +20,20 @@ html
       table(id='info')
         tr
           th Lobby Commands
+          th Battle Commands
         tr 
-          td Shop (S): Go to the shop.
           td Journey (J): Go out into the wilderness. 
+          td Attack (A): Use your weapon to attack the enemy.
+        tr
+          td Shop (S): Go to the shop.
+          td Magic (M): Use a magical spell or ability.
+        tr
+          td
+          td Item (I): Use an item from your inventory.
       table(id='stats')
         tr
-          td Hitpoints: #{user.hp}
-          td Mana: #{user.mana}
+          td Hitpoints: #{user.maxhp}
+          td Mana: #{user.maxmp}
           td Speed: #{user.speed}
         tr
           td Attack: #{user.attack}
