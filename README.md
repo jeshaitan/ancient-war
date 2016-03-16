@@ -1,2 +1,2 @@
 # Ancient War
-A web-based MMO text rpg.
+A web-based Multi-User Dungeon.
