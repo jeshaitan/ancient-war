@@ -77,10 +77,10 @@ exports.main = function(req, res, sess, db) {
       sess.history.push({type: 'species', author: 'Server', description: 'Sorry, I don\'t understand.'});
     if(sess.species) {
       sess.history.push({type: 'chooseVocation', author: 'Server', description: 'What vocation are you?'},
-                        {type: 'vocation', author: 'Server', description: 'Knight: Skilled with many weapons and armor types; have many combat-related abilities.'},
-                        {type: 'vocation', author: 'Server', description: 'Archer: Weilds ranged weaponry with great agility and patience.'},
+                        {type: 'vocation', author: 'Server', description: 'Knight: Skilled with many weapons and armor types; has many combat-related abilities.'},
+                        {type: 'vocation', author: 'Server', description: 'Archer: Wields ranged weaponry with great agility and patience.'},
                         {type: 'vocation', author: 'Server', description: 'Gladiator: Excels in close-range weapons, and can bare extremely heavy loads.'},
-                        {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful comabt-spells.'});
+                        {type: 'vocation', author: 'Server', description: 'Wizard: Able to use many powerful combat-spells.'});
     }
     res.render('index', {history: sess.history, user: sess.user});
   }

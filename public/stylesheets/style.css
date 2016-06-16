@@ -18,6 +18,7 @@ h1 {
   height: 650px;
   width: 45%;
   overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid white;
   margin-left: 2.5%;
   margin-top: 1%;
@@ -35,11 +36,11 @@ h1 {
   position: absolute;
   bottom: 0px;
   left: 0px;
-  width: 99%;
+  width: 100%;
 }
 
-#actionField {
-  width: 100%;
+#actionInput {
+  width: 98%;
 }
 
 .author {
@@ -54,59 +55,7 @@ h1 {
 }
 
 #rightWrap {
-  position: relative;
-  float: left;
+  margin-left: 50px;
+  float: left;  
   width: 45%;
-  margin-top: 1%;
-  margin-left: 2.5%;
-}
-
-#info {
-  padding-left: 30px;
-  border: 1px solid white;
-  font-family: 'MedievalSharp', monospace;
-  color: white;
-  width: 100%;
-  height: 150px;
-}
-#midWrap {
-  position: relative;
-  width: 100%;
-}
-
-#stats {
-  padding-left: 30px;
-  border: 1px solid white;
-  font-family: 'MedievalSharp', monospace;
-  color: white;
-  width: 48%;
-  height: 200px;
-  margin-top: 50px;
-  float: left;
-}
-
-#skills {
-  padding-left: 30px;
-  border: 1px solid white;
-  font-family: 'MedievalSharp', monospace;
-  color: white;
-  width: 48%;
-  height: 200px;
-  margin-top: 50px;
-  margin-left: 4%;
-  float: left;
-}
-
-#inven {
-  padding-left: 30px;
-  border: 1px solid white;
-  font-family: 'MedievalSharp', monospace;
-  color: white;
-  width: 100%;
-  height: 200px;
-  margin-top: 300px;
-}
-
-.item {
-  padding-left: 500x;
 }

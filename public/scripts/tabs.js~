@@ -1,0 +1,11 @@
+$(document).ready(function() {
+    $(".tabsMenu a").click(function(event) {
+	event.preventDefault();
+	console.log('clo')
+	$(this).parent().addClass("current");
+	$(this).parent().siblings().removeClass("current");
+	var tab = $(this).attr("href");
+	$(".tabContent").not(tab).css("display", "none");
+	$(tab).fadeIn();
+    });
+});
