@@ -16,7 +16,7 @@ exports.main = function(req, res, sess, db) {
   //request unknown
   else {
     sess.history.push({type: 'reqUnknown', author: sess.name, description: req.body.input});
-    sess.history.push({type: 'lobby', author: 'Server', description: 'I don\'t understand that request.'});
+    sess.history.push({type: 'lobby', author: 'Innkeeper', description: 'I don\'t understand that request.'});
     res.render('index', {history: sess.history, user: sess.user});
   }
 }
